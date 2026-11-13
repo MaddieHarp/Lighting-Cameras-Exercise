@@ -12,5 +12,6 @@
     "editor.suggest.showSnippets": false,
     "editor.suggest.showWords": false,
     "editor.parameterHints.enabled": false
-  }
+  },
+  "r.lsp.promptToInstall": false
 }

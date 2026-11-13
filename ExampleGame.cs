@@ -6,8 +6,18 @@ namespace LightsAndCameraExercise;
 
 public class ExampleGame : Game
 {
+        // our crate
+        // A collection of crates
+    Crate[] crates;
+        // The camera 
+   // CirclingCamera camera;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+
+        // The game camera
+    FPSCamera camera;
+
+
 
     public ExampleGame()
     {
@@ -28,6 +38,19 @@ public class ExampleGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
+            // initialize the crate 
+            // Make some crates
+    crates = new Crate[] {
+        new Crate(this, CrateType.DarkCross, Matrix.Identity),
+        new Crate(this, CrateType.Slats, Matrix.CreateTranslation(4, 0, 5)),
+        new Crate(this, CrateType.Cross, Matrix.CreateTranslation(-8, 0, 3)),
+        new Crate(this, CrateType.DarkCross, Matrix.CreateRotationY(MathHelper.PiOver4) * Matrix.CreateTranslation(1, 0, 7)),
+        new Crate(this, CrateType.Slats, Matrix.CreateTranslation(3, 0, -3)),
+        new Crate(this, CrateType.Cross, Matrix.CreateRotationY(3) * Matrix.CreateTranslation(3, 2, -3))
+    };
+            // Initialize the camera 
+        // Initialize the camera 
+    camera = new FPSCamera(this, new Vector3(0, 3, 10));
     }
 
     protected override void Update(GameTime gameTime)
@@ -36,6 +59,8 @@ public class ExampleGame : Game
             Exit();
 
         // TODO: Add your update logic here
+            // Update the camera 
+    camera.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -45,6 +70,11 @@ public class ExampleGame : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
+            // Draw some crates
+    foreach(Crate crate in crates)
+    {
+        crate.Draw(camera);
+    }
 
         base.Draw(gameTime);
     }
